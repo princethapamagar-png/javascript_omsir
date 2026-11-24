@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Numbers</title>
+</head>
+<body>
+
+    <h1>Generate Numbers from 1 to 20</h1>
+
+    <button onclick="generateNumbers()">
+        Generate Numbers
+    </button>
+
+    <div id="result"></div>
+
+    <script>
+        function generateNumbers() {
+
+            let output = "";
+
+            for (let i = 1; i <= 20; i++) {
+
+                if (i % 2 === 0) {
+
+                    output += "<span style='color:blue'>" +
+                              i + " </span>";
+
+                } else {
+
+                    output += "<span style='color:red'>" +
+                              i + " </span>";
+
+                }
+
+            }
+
+            document.getElementById("result").innerHTML = output;
+
+        }
+    </script>
+
+</body>
+</html>

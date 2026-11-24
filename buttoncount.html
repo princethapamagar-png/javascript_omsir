@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Button Click Counter</title>
+</head>
+<body>
+
+    <h1 id="heading">Button Clicked: 0</h1>
+
+    <button onclick="countClick()">Click Me</button>
+
+    <script>
+        let count = 0;
+
+        function countClick() {
+
+            count++;
+
+            document.getElementById("heading").innerHTML =
+                "Button Clicked: " + count;
+
+            if (count === 100) {
+
+                alert("You have clicked 100 times!");
+
+            }
+
+        }
+    </script>
+
+</body>
+</html>

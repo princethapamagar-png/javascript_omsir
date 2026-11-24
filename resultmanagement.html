@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Result Management System</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: lightblue;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            width: 80%;
+            margin: auto;
+            border-radius: 10px;
+        }
+
+        input {
+            padding: 10px;
+            margin: 5px;
+            width: 90%;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: green;
+            color: white;
+            border: none;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: lightgray;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Student Result Management System</h1>
+
+        <h2>Enter Student Information</h2>
+
+        <input type="text" id="name"
+        placeholder="Enter Student Name">
+
+        <br>
+
+        <input type="number" id="math"
+        placeholder="Mathematics Marks">
+
+        <br>
+
+        <input type="number" id="science"
+        placeholder="Science Marks">
+
+        <br>
+
+        <input type="number" id="computer"
+        placeholder="Computer Marks">
+
+        <br><br>
+
+        <button onclick="addStudent()">
+            Add Student
+        </button>
+
+        <button onclick="generateList()">
+            Generate Student List
+        </button>
+
+        <p id="message"></p>
+
+        <h2>Student Results</h2>
+
+        <div id="result"></div>
+
+    </div>
+
+    <script>
+
+        // Create an array
+        let students = [];
+
+        // Add Student Function
+        function addStudent() {
+
+            // Get input values
+            let name = document.getElementById("name").value;
+
+            let mathValue = document.getElementById("math").value;
+
+            let scienceValue = document.getElementById("science").value;
+
+            let computerValue = document.getElementById("computer").value;
+
+            // Check student name
+            if (name.trim() === "") {
+
+                document.getElementById("message").textContent =
+                    "Please enter student name";
+
+                return;
+            }
+
+            // Check empty marks
+            if (mathValue === "" || scienceValue === "" ||
+                computerValue === "") {
+
+                document.getElementById("message").textContent =
+                    "Please enter all subject marks";
+
+                return;
+            }
+
+            // Convert marks into numbers
+            let math = Number(mathValue);
+
+            let science = Number(scienceValue);
+
+            let computer = Number(computerValue);
+
+            // Validate marks
+            if (math < 0 || math > 100 ||
+                science < 0 || science > 100 ||
+                computer < 0 || computer > 100) {
+
+                document.getElementById("message").textContent =
+                    "Invalid Marks! Enter marks between 0 and 100";
+
+                return;
+            }
+
+            // Calculate total marks
+            let total = math + science + computer;
+
+            // Calculate percentage
+            let percentage = (total / 300) * 100;
+
+            // Calculate grade
+            let grade;
+
+            if (percentage >= 90) {
+
+                grade = "A+";
+
+            }
+            else if (percentage >= 80) {
+
+                grade = "A";
+
+            }
+            else if (percentage >= 70) {
+
+                grade = "B";
+
+            }
+            else if (percentage >= 60) {
+
+                grade = "C";
+
+            }
+            else if (percentage >= 50) {
+
+                grade = "D";
+
+            }
+            else {
+
+                grade = "F";
+
+            }
+
+            // Create student object
+            let student = {
+
+                name: name,
+                math: math,
+                science: science,
+                computer: computer,
+                total: total,
+                percentage: percentage.toFixed(2),
+                grade: grade
+
+            };
+
+            // Add student to array
+            students.push(student);
+
+            // Display success message
+            document.getElementById("message").textContent =
+                "Result calculated successfully!";
+
+            // Clear input fields
+            document.getElementById("name").value = "";
+
+            document.getElementById("math").value = "";
+
+            document.getElementById("science").value = "";
+
+            document.getElementById("computer").value = "";
+
+        }
+
+        // Generate Student List Function
+        function generateList() {
+
+            let output = "";
+
+            // Check empty array
+            if (students.length === 0) {
+
+                document.getElementById("result").textContent =
+                    "No student records available.";
+
+                return;
+            }
+
+            // Create table
+            output += "<table>";
+
+            output += `
+                <tr>
+                    <th>Name</th>
+                    <th>Mathematics</th>
+                    <th>Science</th>
+                    <th>Computer</th>
+                    <th>Total</th>
+                    <th>Percentage</th>
+                    <th>Grade</th>
+                </tr>
+            `;
+
+            // Loop through students
+            for (let i = 0; i < students.length; i++) {
+
+                output += `
+                    <tr>
+                        <td>${students[i].name}</td>
+                        <td>${students[i].math}</td>
+                        <td>${students[i].science}</td>
+                        <td>${students[i].computer}</td>
+                        <td>${students[i].total}</td>
+                        <td>${students[i].percentage}%</td>
+                        <td>${students[i].grade}</td>
+                    </tr>
+                `;
+
+            }
+
+            output += "</table>";
+
+            // Display table
+            document.getElementById("result").innerHTML = output;
+
+        }
+
+    </script>
+
+</body>
+</html>
